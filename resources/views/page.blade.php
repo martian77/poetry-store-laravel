@@ -26,9 +26,11 @@
                     </li>
                 </a>
             </ul>
-            <div class="pagetitle">
-                <h1>{{ $pagetitle }}</h1>
-            </div>
+            @section('pagetitle')
+                <div class="pagetitle">
+                    <h1>{{ $pagetitle }}</h1>
+                </div>
+            @show
         </section>
         <section class="content">
             @section('content')

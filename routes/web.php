@@ -48,19 +48,6 @@ Route::get('/poem/{id}', function($id) {
   return $poem_title . $poem_author . $poem . $poem_source;
 });
 
-Route::get('/author', function() {
-  $authors = array(
-    array(
-      'id' => 1,
-      'firstname' => 'Ogden',
-      'familyname' => 'Nash',
-    ),
-  );
-  return view('author.list', array('pagetitle' => 'Authors listing', 'authors' => $authors));
-});
+Route::get('/author', 'AuthorController@list');
 
-Route::get('/author/{id}', function($id) {
-  $author_firstname = 'Ogden';
-  $author_familyname = 'Nash';
-  return '<h1>' . $author_firstname . ' ' . $author_familyname . '</h1>';
-});
+Route::get('/author/{id}', 'AuthorController@show');
