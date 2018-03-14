@@ -19,4 +19,9 @@ class Author extends Model
     public function getCombinedNames() {
       return $this->firstname . ' ' . $this->familyname;
     }
+
+    public function poems()
+    {
+      return $this->belongsToMany('App\Poem');
+    }
 }

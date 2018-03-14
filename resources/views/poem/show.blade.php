@@ -2,7 +2,11 @@
 
 @section('pagetitle')
     <h1>{{ $pagetitle }}</h1>
-    <h2>by {{ $poem->author }}</h2>
+    <h2>by
+        @foreach($poem->authors()->get() as $author)
+            <a href="{{ route('author', ['id' => $author->id])}}" >{{ $author->getPreferredName() }}@if (!$loop->last), @endif</a>
+        @endforeach
+    </h2>
 @endsection
 
 @section('content')

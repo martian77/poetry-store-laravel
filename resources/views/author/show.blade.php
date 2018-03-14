@@ -14,12 +14,26 @@
             <li class="author__detail"><span class="detail__label">Died: </span><span class="detail__data">{{ $author->deathdate }}</span></li>
         </div>
         @if (!empty($author->links))
-            <div class="author__links">
-                <h3>Relevant links</h3>
+            <div class="subsection author__links">
+                <h3 class="subsection__title">Relevant links</h3>
                 <ul>
                     @foreach ($author->links as $link)
                         <a href="{{ $link }}">
                             <li class="author__link">{{ $link }}</li>
+                        </a>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        @if (!empty($author->poems()->get()))
+            <div class="subsection author__poems">
+                <h3 class="subsection__title">Poems</h3>
+                <ul>
+                    @foreach($author->poems()->get() as $poem)
+                        <a href="{{ route('poem', ['id' => $poem->id])}}" >
+                            <li class="poem__link">
+                                {{ $poem->title }}
+                            </li>
                         </a>
                     @endforeach
                 </ul>

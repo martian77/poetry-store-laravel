@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/poem', 'PoemController@list');
-Route::get('/poem/{id}', 'PoemController@show');
+Route::get('/poem/{id}', 'PoemController@show')->name('poem');
 
 Route::get('/author', 'AuthorController@list');
-Route::get('/author/{id}', 'AuthorController@show');
+Route::get('/author/{id}', 'AuthorController@show')->name('author');
