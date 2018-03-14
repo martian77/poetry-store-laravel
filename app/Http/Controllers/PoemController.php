@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Poem;
 use App\Http\Controllers\Controller;
 
 class PoemController extends Controller
@@ -9,13 +10,12 @@ class PoemController extends Controller
 
   public function show($id)
   {
-    $poems = $this->getPoems();
-    $poem = array_pop($poems);
+    $poem = Poem::findOrFail($id);
     return view('poem.show', array('pagetitle' => $poem['title'], 'poem' => $poem) );
   }
   public function list()
   {
-    $poems = $this->getPoems();
+    $poems = Poem::all();
     return view('poem.list', array('pagetitle' => 'Poems Listing', 'poems' => $poems));
   }
 
@@ -26,7 +26,7 @@ class PoemController extends Controller
         'id' => 1,
         'title' => 'Winter Morning Poem',
         'author' => 'Ogden Nash',
-        'lines' => array(
+        'body' => implode('<br />', array(
           'Winter is the king of showmen',
           'Turning tree stumps into snow men',
           'And houses into birthday cakes',
@@ -37,7 +37,7 @@ class PoemController extends Controller
           'Catching snowflakes on your tongue',
           'Snow is snowy when it\'s snowing',
           'I\'m sorry it\'s slushy when it\'s going',
-        ),
+        )),
         'sources' => array(
           'https://sites.google.com/site/andrewminerportfolio/home/inspiration-continued/winter-morning-poem-by-ogden-nash',
         ),
