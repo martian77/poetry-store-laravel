@@ -13,28 +13,23 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define( App\Author::class, function() {
+$factory->define( App\Author::class, function($faker) {
+  $name = explode(' ', $faker->name);
   return array(
-    'id' => 1,
-    'firstname' => 'Ogden',
-    'familyname' => 'Nash',
-    'birthdate' => '1902-08-19',
-    'deathdate' => '1971-05-19',
-    'links' => array(
-      'https://en.wikipedia.org/wiki/Ogden_Nash',
-      'https://www.poets.org/poetsorg/poet/ogden-nash',
-    ),
+    'firstname' => $name[0],
+    'familyname' => $name[1],
+    'birthdate' => $faker->date,
+    'deathdate' => $faker->date,
+    'preferredName' => '',
+    // 'links' => array(
+    //   'https://en.wikipedia.org/wiki/Ogden_Nash',
+    //   'https://www.poets.org/poetsorg/poet/ogden-nash',
+    // ),
   );
 });
 
 $factory->state(App\Author::class, 'preferredName', function($faker) {
   return [
     'preferredName' => $faker->name,
-  ];
-});
-
-$factory->state(App\Author::class, 'noPreferredName', function($faker) {
-  return [
-    'preferredName' => '',
   ];
 });

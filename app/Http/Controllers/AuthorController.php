@@ -14,7 +14,7 @@ class AuthorController extends Controller
    */
   public function show($id)
   {
-    $author = factory(Author::class)->states('preferredName')->make();
+    $author = Author::findOrFail($id);
     $pagetitle = 'Author ' . $author->getPreferredName();
     return view('author.show', array('pagetitle' => $pagetitle, 'author' => $author ));
   }
@@ -26,7 +26,7 @@ class AuthorController extends Controller
    */
   public function list()
   {
-    $authors = factory(Author::class, 3)->states('preferredName')->make();
+    $authors = Author::all();
 
     return view('author.list', array('pagetitle' => 'Authors listing', 'authors' => $authors));
   }
