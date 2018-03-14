@@ -19,11 +19,11 @@ Route::get('/poem', function () {
   $poems = array(
     array(
       'id' => 1,
-      'poem_title' => 'Winter Morning Poem',
-      'poem_author' => 'Ogden Nash',
+      'title' => 'Winter Morning Poem',
+      'author' => 'Ogden Nash',
     ),
   );
-
+  return view('poem.list', array('pagetitle' => 'Poems Listing', 'poems' => $poems));
 });
 
 Route::get('/poem/{id}', function($id) {
@@ -52,10 +52,11 @@ Route::get('/author', function() {
   $authors = array(
     array(
       'id' => 1,
-      'author_firstname' => 'Ogden',
-      'author_familyname' => 'Nash',
+      'firstname' => 'Ogden',
+      'familyname' => 'Nash',
     ),
   );
+  return view('author.list', array('pagetitle' => 'Authors listing', 'authors' => $authors));
 });
 
 Route::get('/author/{id}', function($id) {
