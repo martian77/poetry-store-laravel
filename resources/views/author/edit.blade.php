@@ -3,7 +3,7 @@
 @section('pagecontent')
     <div class="panel panel-default">
         <div class="panel-heading">
-            @empty($author)
+            @empty($author->id)
                 New Author
             @else
                 Editing Author {{ $author->getPreferredName() }}
@@ -13,7 +13,7 @@
         <div class="panel-body">
             <form class="form-horizontal" method="POST" action="{{ route('author.store') }}">
                 {{ csrf_field() }}
-                <input name="author_id" type="hidden" value="{{ empty($author) ? 0 : $author->id }}" >
+                <input name="author_id" type="hidden" value="{{ empty($author->id) ? 0 : $author->id }}" >
 
                 <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
                     <label for="firstname" class="col-md-4 control-label">First Name</label>
@@ -83,7 +83,7 @@
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-4">
                         <button type="submit" class="btn btn-primary">
-                            @empty($author)
+                            @empty($author->id)
                                 Add author
                             @else
                                 Update author

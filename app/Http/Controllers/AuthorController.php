@@ -6,6 +6,7 @@ use App\Author;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreAuthorRequest;
 
 class AuthorController extends Controller
 {
@@ -49,13 +50,10 @@ class AuthorController extends Controller
     return view('author.edit', ['pagetitle' => 'Edit author', 'author' => $author]);
   }
 
-  public function store(Request $request)
+  public function store(StoreAuthorRequest $request)
   {
     $validatedData = $request->validate([
-      'firstname' => 'required',
-      'familyname' => 'required',
-      'birthdate' => 'date|before:today',
-      'deathdate' => 'date|after:birthdate|before:tomorrow',
+
     ]);
 
     $user = Auth::user();
