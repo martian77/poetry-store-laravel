@@ -20,6 +20,9 @@ class CreatePoemsTable extends Migration
             $table->integer('publishedDate')->nullable()->unsigned();
             $table->string('copyright');
             $table->string('license');
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')
+              ->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

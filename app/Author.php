@@ -24,4 +24,9 @@ class Author extends Model
     {
       return $this->belongsToMany('App\Poem');
     }
+
+    public function user()
+    {
+      return $this->belongsTo('App\User');
+    }
 }

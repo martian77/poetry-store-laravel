@@ -20,6 +20,9 @@ class CreateAuthorsTable extends Migration
             $table->string('preferredName');
             $table->date('birthdate');
             $table->date('deathdate');
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')
+              ->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

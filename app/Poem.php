@@ -10,4 +10,9 @@ class Poem extends Model
     {
       return $this->belongsToMany('App\Author');
     }
+
+    public function user()
+    {
+      return $this->belongsTo('App\User');
+    }
 }
