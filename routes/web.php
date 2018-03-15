@@ -20,3 +20,7 @@ Route::get('/poem/{id}', 'PoemController@show')->name('poem');
 
 Route::get('/author', 'AuthorController@list');
 Route::get('/author/{id}', 'AuthorController@show')->name('author');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
