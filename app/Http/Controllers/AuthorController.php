@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Author;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class AuthorController extends Controller
 {
@@ -26,8 +27,11 @@ class AuthorController extends Controller
    */
   public function list()
   {
-    $authors = Author::all();
-
+    $user = Auth::user();
+    $authors = array();
+    if (! empty($user)) {
+      $authors = $user->authors()->get();
+    }
     return view('author.list', array('pagetitle' => 'Authors listing', 'authors' => $authors));
   }
 }

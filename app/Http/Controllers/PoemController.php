@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Poem;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class PoemController extends Controller
 {
@@ -13,35 +14,18 @@ class PoemController extends Controller
     $poem = Poem::findOrFail($id);
     return view('poem.show', array('pagetitle' => $poem['title'], 'poem' => $poem) );
   }
+
+  /**
+   * Lists all of a user's poems.
+   * @return [type] [description]
+   */
   public function list()
   {
-    $poems = Poem::all();
+    $user = Auth::user();
+    $poems = array();
+    if (! empty($user)) {
+      $poems = $user->poems()->get();
+    }
     return view('poem.list', array('pagetitle' => 'Poems Listing', 'poems' => $poems));
-  }
-
-  private function getPoems()
-  {
-    return array(
-      array(
-        'id' => 1,
-        'title' => 'Winter Morning Poem',
-        'author' => 'Ogden Nash',
-        'body' => implode('<br />', array(
-          'Winter is the king of showmen',
-          'Turning tree stumps into snow men',
-          'And houses into birthday cakes',
-          'And spreading sugar over lakes',
-          'Smooth and clean and frosty white',
-          'The world looks good enough to bite',
-          'That\'s the season to be young',
-          'Catching snowflakes on your tongue',
-          'Snow is snowy when it\'s snowing',
-          'I\'m sorry it\'s slushy when it\'s going',
-        )),
-        'sources' => array(
-          'https://sites.google.com/site/andrewminerportfolio/home/inspiration-continued/winter-morning-poem-by-ogden-nash',
-        ),
-      )
-    );
   }
 }

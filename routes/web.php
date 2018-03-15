@@ -16,10 +16,10 @@ Route::get('/', function () {
 });
 
 Route::get('/poem', 'PoemController@list');
-Route::get('/poem/{id}', 'PoemController@show')->name('poem');
+Route::get('/poem/{id}', 'PoemController@show')->name('poem')->middleware('auth');
 
 Route::get('/author', 'AuthorController@list');
-Route::get('/author/{id}', 'AuthorController@show')->name('author');
+Route::get('/author/{id}', 'AuthorController@show')->name('author')->middleware('auth');
 
 Auth::routes();
 
