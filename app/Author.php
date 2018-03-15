@@ -7,6 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Author extends Model
 {
     //
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'familyname', 'firstname', 'preferredName', 'birthdate', 'deathdate'
+    ];
 
     public function getPreferredName()
     {

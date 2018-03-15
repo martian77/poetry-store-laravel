@@ -6,7 +6,7 @@
     @else
         <ul class="poems">
             @foreach ( $poems as $poem )
-                <a href="/poem/{{ $poem->id }}">
+                <a href="{{ route('poem', ['id' => $poem->id]) }}">
                     <li class="poem">
                         <span class="poem__title">{{ $poem->title }}</span> -
                         @if (! empty($poem->authors()->get()))
