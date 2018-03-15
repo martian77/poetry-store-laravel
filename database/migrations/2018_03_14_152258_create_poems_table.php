@@ -17,6 +17,9 @@ class CreatePoemsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->longText('body');
+            $table->integer('publishedDate')->nullable()->unsigned();
+            $table->string('copyright');
+            $table->string('license');
             $table->timestamps();
         });
     }

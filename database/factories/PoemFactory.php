@@ -10,5 +10,8 @@ $factory->define(App\Poem::class, function (Faker $faker) {
     return [
         'title' => substr($faker->sentence(2), 0, -1),
         'body' => implode('<br />', $poem),
+        'publishedDate' => rand(1654, 2017),
+        'copyright' => 'Copyright &copy ' . rand(1900, 2017) . ' ' . $faker->name,
+        'license' => $faker->sentence(3),
     ];
 });
