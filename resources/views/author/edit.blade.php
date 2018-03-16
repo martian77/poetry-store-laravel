@@ -95,3 +95,6 @@
         </div>
     </div>
 @endsection
+@section('footerScripts')
+    <script src="{{ mix('js/editor.js') }}"></script>
+@endsection
