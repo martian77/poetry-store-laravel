@@ -28,12 +28,12 @@
                     <div class="poem__license"><span class="detail__data">{{ $poem->license }}</span></div>
                 @endif
             </div>
-            @if (!empty($poem->sources))
+            @if (!empty($poem->sources()->get()))
                 <div class="poem__sources">
                     <ul>
-                        @foreach($poem->sources as $source)
-                            <a href="{{ $source }}">
-                                <li>{{ $source }}</li>
+                        @foreach($poem->sources()->get() as $source)
+                            <a href="{{ $source->link }}">
+                                <li class="source__type--{{ $source->sourceType }}">{{ $source->description }}</li>
                             </a>
                         @endforeach
                     </ul>

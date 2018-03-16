@@ -37,4 +37,9 @@ class Author extends Model
     {
       return $this->belongsTo('App\User');
     }
+
+    public function sources()
+    {
+      return $this->morphMany('App\Source', 'sourceable');
+    }
 }

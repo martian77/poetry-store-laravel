@@ -16,13 +16,13 @@
                 <li class="author__detail"><span class="detail__label">Born: </span><span class="detail__data">{{ $author->birthdate }}</span></li>
                 <li class="author__detail"><span class="detail__label">Died: </span><span class="detail__data">{{ $author->deathdate }}</span></li>
             </div>
-            @if (!empty($author->links))
+            @if (!empty($author->sources()->get()))
                 <div class="subsection author__links">
                     <h3 class="subsection__title">Relevant links</h3>
                     <ul>
-                        @foreach ($author->links as $link)
-                            <a href="{{ $link }}">
-                                <li class="author__link">{{ $link }}</li>
+                        @foreach ($author->sources()->get() as $source)
+                            <a href="{{ $source->link }}">
+                                <li class="author__source--{{ $source->sourceType }}">{{ $source->description }}</li>
                             </a>
                         @endforeach
                     </ul>
