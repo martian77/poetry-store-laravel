@@ -48,7 +48,7 @@
                     <label for="body" class="col-md-2 control-label">Body</label>
 
                     <div class="col-md-8">
-                        <textarea id="body" class="form-control" rows="20" name="body" required>{{ !empty(old('body'))?old('body'):$poem->body }}</textarea>
+                        <textarea id="body" class="form-control ckeditor" rows="20" name="body" required>{{ !empty(old('body'))?old('body'):$poem->body }}</textarea>
 
                         @if ($errors->has('body'))
                             <span class="help-block">
