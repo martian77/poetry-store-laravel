@@ -18,8 +18,8 @@ class CreatePoemsTable extends Migration
             $table->string('title');
             $table->longText('body');
             $table->integer('publishedDate')->nullable()->unsigned();
-            $table->string('copyright');
-            $table->string('license');
+            $table->string('copyright')->nullable();
+            $table->string('license')->nullable();
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')
               ->on('users')->onDelete('cascade');

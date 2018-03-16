@@ -52,10 +52,6 @@ class AuthorController extends Controller
 
   public function store(StoreAuthorRequest $request)
   {
-    $validatedData = $request->validate([
-
-    ]);
-
     $user = Auth::user();
     if ( ! empty($request->author_id)) {
       $author = Author::updateOrCreate(
