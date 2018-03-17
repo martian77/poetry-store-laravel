@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Poem;
+use App\Source;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StorePoemRequest;
@@ -43,7 +44,16 @@ class PoemController extends Controller
     $user = Auth::user();
     $poem = $user->poems()->find($id);
     $authors = $user->authors()->get();
-    return view('poem.edit', array('pagetitle' => 'Edit Poem', 'poem' => $poem, 'authors' => $authors));
+    $sources = $poem->sources()->get();
+    $sources[] = new Source;
+
+    $view_data = array(
+      'pagetitle' => 'Edit Poem',
+      'poem' => $poem,
+      'authors' => $authors,
+      'sources' => $sources,
+    );
+    return view('poem.edit', $view_data);
   }
 
   /**
@@ -75,7 +85,28 @@ class PoemController extends Controller
     }
     $authors = $user->authors()->wherein('id', $author_request)->get();
     $poem->authors()->sync($authors);
-    
+
+    $counter = 0;
+    while (!empty($request->input('sourceType' . $counter))) {
+      $source_id = $request->input('sourceId' . $counter);
+      if ( !empty($source_id)) {
+        $source = Source::find($source_id);
+      }
+      else {
+        $source = new Source;
+      }
+      $source->sourceType = $request->input('sourceType' . $counter);
+      $source->description = $request->input('sourceDescription' . $counter);
+      $source->link = $request->input('sourceLink' . $counter);
+      if(!empty($source->description) || !empty($source->description)) {
+        $poem->sources()->save($source);
+      }
+      elseif(!empty($source_id)) {
+        $poem->sources()->where('id', '=', $source_id)->delete();
+      }
+      $counter++;
+    }
+
     return redirect( route('poem', ['id' => $poem->id] ) );
   }
 }

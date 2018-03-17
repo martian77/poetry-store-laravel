@@ -96,6 +96,14 @@
                         @endif
                     </div>
                 </div>
+                <div id="sources">
+                    <fieldset>
+                        <legend>Poem Sources</legend>
+                        @foreach($sources as $source)
+                            @include('source.edit', ['source' => $source, 'counter' => $loop->index])
+                        @endforeach
+                    </fieldset>
+                </div>
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-5">
                         <button type="submit" class="btn btn-primary">

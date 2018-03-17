@@ -2,7 +2,7 @@
 
 @section('pagecontent')
     @unless(Auth::check())
-        Please login to see a list of your authors.
+        Please login to see a list of your poems.
     @else
         <ul class="poems">
             @foreach ( $poems as $poem )

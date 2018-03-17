@@ -3,10 +3,19 @@
 @section('pagetitle')
     <h1>{{ $pagetitle }}</h1>
     <h2>by
-        @foreach($poem->authors()->get() as $author)
-            <a href="{{ route('author', ['id' => $author->id])}}" >{{ $author->getPreferredName() }}@if (!$loop->last), @endif</a>
-        @endforeach
+        @empty($poem->authors()->count())
+            Anonymous
+        @else
+            @foreach($poem->authors()->get() as $author)
+                <a href="{{ route('author', ['id' => $author->id])}}" >{{ $author->getPreferredName() }}@if (!$loop->last), @endif</a>
+            @endforeach
+        @endempty
     </h2>
+    @if (Auth::id() == $poem->user->id)
+        <div class="actions">
+            <a class="btn btn-primary btn-sm" href="{{ route('poem.edit', ['id' => $poem->id]) }}">Edit</a>
+        </div>
+    @endif
 @endsection
 
 @section('pagecontent')
@@ -28,14 +37,11 @@
                     <div class="poem__license"><span class="detail__data">{{ $poem->license }}</span></div>
                 @endif
             </div>
-            @if (!empty($poem->sources()->get()))
-                <div class="poem__sources">
+            @if (!empty($poem->sources()->count()))
+                <div class="subsection poem__sources">
+                    <h3 class="subsection__title">Sources</h3>
                     <ul>
-                        @foreach($poem->sources()->get() as $source)
-                            <a href="{{ $source->link }}">
-                                <li class="source__type--{{ $source->sourceType }}">{{ $source->description }}</li>
-                            </a>
-                        @endforeach
+                        @each('source.show', $poem->sources()->get(), 'source')
                     </ul>
                 </div>
             @endif

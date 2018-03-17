@@ -5,6 +5,11 @@
     @if ( $author->getPreferredName() != $author->getCombinedNames() )
         <h2>({{ $author->getCombinedNames() }})</h2>
     @endif
+    @if (Auth::id() == $author->user->id)
+        <div class="actions">
+            <a class="btn btn-primary btn-sm" href="{{ route('author.edit', ['id' => $author->id]) }}">Edit</a>
+        </div>
+    @endif
 @endsection
 
 @section('pagecontent')
@@ -16,7 +21,7 @@
                 <li class="author__detail"><span class="detail__label">Born: </span><span class="detail__data">{{ $author->birthdate }}</span></li>
                 <li class="author__detail"><span class="detail__label">Died: </span><span class="detail__data">{{ $author->deathdate }}</span></li>
             </div>
-            @if (!empty($author->sources()->get()))
+            @if (!empty($author->sources()->count()))
                 <div class="subsection author__links">
                     <h3 class="subsection__title">Relevant links</h3>
                     <ul>
@@ -28,7 +33,7 @@
                     </ul>
                 </div>
             @endif
-            @if (!empty($author->poems()->get()))
+            @if (!empty($author->poems()->count()))
                 <div class="subsection author__poems">
                     <h3 class="subsection__title">Poems</h3>
                     <ul>

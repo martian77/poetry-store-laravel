@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Author;
+use App\Source;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -47,7 +48,14 @@ class AuthorController extends Controller
   public function edit($id)
   {
     $author = Author::findOrFail($id);
-    return view('author.edit', ['pagetitle' => 'Edit author', 'author' => $author]);
+    $sources = $author->sources()->get();
+    $sources[] = new Source;
+    $view_data = array(
+      'pagetitle' => 'Edit author',
+      'author' => $author,
+      'sources' => $sources,
+    );
+    return view('author.edit', $view_data);
   }
 
   public function store(StoreAuthorRequest $request)
@@ -74,6 +82,28 @@ class AuthorController extends Controller
         'preferredName' => $request->preferredName,
       ]);
     }
+
+    $counter = 0;
+    while (!empty($request->input('sourceType' . $counter))) {
+      $source_id = $request->input('sourceId' . $counter);
+      if ( !empty($source_id)) {
+        $source = Source::find($source_id);
+      }
+      else {
+        $source = new Source;
+      }
+      $source->sourceType = $request->input('sourceType' . $counter);
+      $source->description = $request->input('sourceDescription' . $counter);
+      $source->link = $request->input('sourceLink' . $counter);
+      if(!empty($source->description) || !empty($source->description)) {
+        $author->sources()->save($source);
+      }
+      elseif(!empty($source_id)) {
+        $author->sources()->where('id', '=', $source_id)->delete();;
+      }
+      $counter++;
+    }
+
     if(!empty($author->id)) {
       return redirect( route('author', ['id' => $author->id] ) );
     }
