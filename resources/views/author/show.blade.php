@@ -39,9 +39,9 @@
             @endif
             @if (! empty($author->tags->count()) )
                 <div class="subsection author__tags">
-                    Tags: 
-                    @foreach ( $author->tagArray as $tag )
-                        {{ $tag }}@if (!$loop->last), @endif</a>
+                    Tags:
+                    @foreach ( $author->tags as $tag )
+                        <a href="{{ route('tag', ['normalised' => urlencode($tag->normalized)]) }}">{{ $tag->name }}</a>@if (!$loop->last), @endif</a>
                     @endforeach
                 </div>
             @endif

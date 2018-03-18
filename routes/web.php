@@ -27,6 +27,8 @@ Route::get('/author/add', 'AuthorController@add')->middleware('auth')->name('aut
 Route::get('/author/{id}/edit', 'AuthorController@edit')->where(['id' => '[0-9]+'])->middleware('auth')->name('author.edit');
 Route::post('/author', 'AuthorController@store')->middleware('auth')->name('author.store');
 
+Route::get('/tag/{normalised}', 'TagController@show')->name('tag')->middleware('auth');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

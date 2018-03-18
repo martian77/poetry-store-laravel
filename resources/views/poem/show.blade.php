@@ -48,8 +48,8 @@
             @if (! empty($poem->tags->count()) )
                 <div class="subsection poem__tags">
                     Tags:
-                    @foreach ( $poem->tagArray as $tag )
-                        {{ $tag }}@if (!$loop->last), @endif</a>
+                    @foreach ( $poem->tags as $tag )
+                        <a href="{{ route('tag', ['normalised' => urlencode($tag->normalized)]) }}">{{ $tag->name }}</a>@if (!$loop->last), @endif</a>
                     @endforeach
                 </div>
             @endif
