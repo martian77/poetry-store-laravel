@@ -80,17 +80,34 @@
                         @endif
                     </div>
                 </div>
-                <div class="form-group{{ $errors->has('notes') ? ' has-error' : '' }}">
-                    <label for="notes" class="col-md-2 control-label">Notes</label>
+                <div class="row">
+                    <div class="form-group{{ $errors->has('notes') ? ' has-error' : '' }}">
+                        <label for="notes" class="col-md-2 control-label">Notes</label>
 
-                    <div class="col-md-8">
-                        <textarea id="notes" class="form-control ckeditor" rows="20" name="notes">{{ !empty(old('notes'))?old('notes'):$author->notes }}</textarea>
+                        <div class="col-md-8">
+                            <textarea id="notes" class="form-control ckeditor" rows="20" name="notes">{{ !empty(old('notes'))?old('notes'):$author->notes }}</textarea>
 
-                        @if ($errors->has('notes'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('notes') }}</strong>
-                            </span>
-                        @endif
+                            @if ($errors->has('notes'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('notes') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group{{ $errors->has('tags') ? ' has-error' : '' }}">
+                        <label for="tags" class="col-md-2 control-label">Tags</label>
+
+                        <div class="col-md-8">
+                            <input id="tags" type="text" class="form-control" name="tags" value="{{ !empty(old('tags'))?old('tags'):$author->tagList }}">
+                            <small id="tags-help" class="form-text text-muted">Please separate your tags with a comma e.g. american, female.</small>
+                            @if ($errors->has('tags'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('tags') }}</strong>
+                                </span>
+                            @endif
+                        </div>
                     </div>
                 </div>
                 <div id="sources">

@@ -36,7 +36,16 @@ class PoemController extends Controller
     $user = Auth::user();
     $poem = new Poem;
     $authors = $user->authors()->get();
-    return view('poem.edit', array('pagetitle' => 'Add Poem', 'poem' => $poem, 'authors' => $authors));
+    $sources = [new Source];
+
+    $view_data = array(
+      'pagetitle' => 'Edit Poem',
+      'poem' => $poem,
+      'authors' => $authors,
+      'sources' => $sources,
+    );
+
+    return view('poem.edit', $view_data);
   }
 
   public function edit($id)
@@ -85,6 +94,9 @@ class PoemController extends Controller
     }
     $authors = $user->authors()->wherein('id', $author_request)->get();
     $poem->authors()->sync($authors);
+
+    $tags = is_null($request->tags)?'':$request->tags;
+    $poem->retag($tags);
 
     $counter = 0;
     while (!empty($request->input('sourceType' . $counter))) {

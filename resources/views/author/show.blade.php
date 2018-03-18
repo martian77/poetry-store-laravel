@@ -37,6 +37,14 @@
                     </ul>
                 </div>
             @endif
+            @if (! empty($author->tags->count()) )
+                <div class="subsection author__tags">
+                    Tags: 
+                    @foreach ( $author->tagArray as $tag )
+                        {{ $tag }}@if (!$loop->last), @endif</a>
+                    @endforeach
+                </div>
+            @endif
             @if (!empty($author->poems()->count()))
                 <div class="subsection author__poems">
                     <h3 class="subsection__title">Poems</h3>

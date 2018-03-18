@@ -48,7 +48,7 @@
                     <label for="body" class="col-md-2 control-label">Body</label>
 
                     <div class="col-md-8">
-                        <textarea id="body" class="form-control ckeditor" rows="20" name="body" required>{{ !empty(old('body'))?old('body'):$poem->body }}</textarea>
+                        <textarea id="body" class="form-control ckeditor" rows="20" name="body">{{ !empty(old('body'))?old('body'):$poem->body }}</textarea>
 
                         @if ($errors->has('body'))
                             <span class="help-block">
@@ -94,6 +94,21 @@
                                 <strong>{{ $errors->first('license') }}</strong>
                             </span>
                         @endif
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group{{ $errors->has('tags') ? ' has-error' : '' }}">
+                        <label for="tags" class="col-md-2 control-label">Tags</label>
+
+                        <div class="col-md-8">
+                            <input id="tags" type="text" class="form-control" name="tags" value="{{ !empty(old('tags'))?old('tags'):$poem->tagList }}">
+                            <small id="tags-help" class="form-text text-muted">Please separate your tags with a comma e.g. american, female.</small>
+                            @if ($errors->has('tags'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('tags') }}</strong>
+                                </span>
+                            @endif
+                        </div>
                     </div>
                 </div>
                 <div id="sources">

@@ -84,7 +84,8 @@ class AuthorController extends Controller
     else {
       $author = $user->authors()->create($data);
     }
-
+    $tags = is_null($request->tags)?'':$request->tags;
+    $author->retag($tags);
     $counter = 0;
     while (!empty($request->input('sourceType' . $counter))) {
       $source_id = $request->input('sourceId' . $counter);
