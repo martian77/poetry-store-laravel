@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentTaggable\Taggable;
 
 class Poem extends Model
 {
+  use Taggable;
   /**
    * The attributes that are mass assignable.
    *

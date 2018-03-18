@@ -42,7 +42,13 @@ class AuthorController extends Controller
   public function add()
   {
     $author = new Author;
-    return view('author.edit', ['pagetitle' => 'Add author', 'author' => $author]);
+    $sources = [new Source];
+    $view_data = array(
+      'pagetitle' => 'Edit author',
+      'author' => $author,
+      'sources' => $sources,
+    );
+    return view('author.edit', $view_data);
   }
 
   public function edit($id)
@@ -103,7 +109,6 @@ class AuthorController extends Controller
       }
       $counter++;
     }
-
     if(!empty($author->id)) {
       return redirect( route('author', ['id' => $author->id] ) );
     }
