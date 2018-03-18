@@ -67,26 +67,22 @@ class AuthorController extends Controller
   public function store(StoreAuthorRequest $request)
   {
     $user = Auth::user();
+    $data = [
+      'firstname' => $request->firstname,
+      'familyname' => $request->familyname,
+      'birthdate' => $request->birthdate,
+      'deathdate' => $request->deathdate,
+      'preferredName' => $request->preferredName,
+      'notes' => $request->notes,
+    ];
     if ( ! empty($request->author_id)) {
       $author = Author::updateOrCreate(
         ['id' => $request->author_id],
-        [
-          'firstname' => $request->firstname,
-          'familyname' => $request->familyname,
-          'birthdate' => $request->birthdate,
-          'deathdate' => $request->deathdate,
-          'preferredName' => $request->preferredName,
-        ]
+        $data
       );
     }
     else {
-      $author = $user->authors()->create([
-        'firstname' => $request->firstname,
-        'familyname' => $request->familyname,
-        'birthdate' => $request->birthdate,
-        'deathdate' => $request->deathdate,
-        'preferredName' => $request->preferredName,
-      ]);
+      $author = $user->authors()->create($data);
     }
 
     $counter = 0;

@@ -21,6 +21,10 @@
                 <li class="author__detail"><span class="detail__label">Born: </span><span class="detail__data">{{ $author->birthdate }}</span></li>
                 <li class="author__detail"><span class="detail__label">Died: </span><span class="detail__data">{{ $author->deathdate }}</span></li>
             </div>
+            <div class="subsection author__notes">
+                <h3 class="subsection__title">Notes</h3>
+                {!! $author->notes !!}
+            </div>
             @if (!empty($author->sources()->count()))
                 <div class="subsection author__links">
                     <h3 class="subsection__title">Relevant links</h3>

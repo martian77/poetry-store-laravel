@@ -14,7 +14,7 @@ class Author extends Model
      * @var array
      */
     protected $fillable = [
-        'familyname', 'firstname', 'preferredName', 'birthdate', 'deathdate'
+        'familyname', 'firstname', 'preferredName', 'birthdate', 'deathdate', 'notes',
     ];
 
     public function getPreferredName()

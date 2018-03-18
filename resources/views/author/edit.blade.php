@@ -80,6 +80,19 @@
                         @endif
                     </div>
                 </div>
+                <div class="form-group{{ $errors->has('notes') ? ' has-error' : '' }}">
+                    <label for="notes" class="col-md-2 control-label">Notes</label>
+
+                    <div class="col-md-8">
+                        <textarea id="notes" class="form-control ckeditor" rows="20" name="notes">{{ !empty(old('notes'))?old('notes'):$author->notes }}</textarea>
+
+                        @if ($errors->has('notes'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('notes') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
                 <div id="sources">
                     <fieldset>
                         <legend>Author Links</legend>
