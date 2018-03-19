@@ -7,7 +7,7 @@
             Anonymous
         @else
             @foreach($poem->authors()->get() as $author)
-                <a href="{{ route('author', ['id' => $author->id])}}" >{{ $author->getPreferredName() }}@if (!$loop->last), @endif</a>
+                <a href="{{ route('author', ['id' => $author->id])}}" >{{ $author->preferredName }}@if (!$loop->last), @endif</a>
             @endforeach
         @endempty
     </h2>

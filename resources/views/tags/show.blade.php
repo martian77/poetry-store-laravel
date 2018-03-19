@@ -12,7 +12,7 @@
                 @foreach( $authors as $author )
                     <a href="{{ route('author', ['id' => $author->id]) }}">
                         <li class="author">
-                            <span class="author__firstname">{{ $author->firstname }}</span> <span class="author__familyname">{{ $author->familyname }}</span> <span class="author__preferredname">({{ $author->getPreferredName() }})</span>
+                            <span class="author__firstname">{{ $author->firstname }}</span> <span class="author__familyname">{{ $author->familyname }}</span> <span class="author__preferredname">({{ $author->preferredName }})</span>
                         </li>
                     </a>
                 @endforeach
@@ -34,7 +34,7 @@
                             <span class="poem__title">{{ $poem->title }}</span> -
                             @if (! empty($poem->authors()->get()))
                                 @foreach ($poem->authors()->get() as $author)
-                                    {{ $author->getPreferredName() }}@if (!$loop->last), @endif
+                                    {{ $author->preferredName }}@if (!$loop->last), @endif
                                 @endforeach
                             @else
                                 Anon

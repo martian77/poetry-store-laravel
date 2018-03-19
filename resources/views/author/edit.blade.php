@@ -6,7 +6,7 @@
             @empty($author->id)
                 New Author
             @else
-                Editing Author {{ $author->getPreferredName() }}
+                Editing Author {{ $author->preferredName }}
             @endempty
         </div>
 

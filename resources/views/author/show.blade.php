@@ -1,8 +1,8 @@
 @extends('layouts.content')
 
 @section('pagetitle')
-    <h1>{{ $author->getPreferredName() }}</h1>
-    @if ( $author->getPreferredName() != $author->getCombinedNames() )
+    <h1>{{ $author->preferredName }}</h1>
+    @if ( $author->preferredName != $author->getCombinedNames() )
         <h2>({{ $author->getCombinedNames() }})</h2>
     @endif
     @if (Auth::id() == $author->user->id)

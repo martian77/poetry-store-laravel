@@ -34,7 +34,7 @@
                         <select id="author" class="form-control" name="author[]" multiple>
                             <option value="">Anonymous</option>
                             @foreach($authors as $author)
-                                <option value="{{ $author->id }}" @if($poem->authors()->find($author->id)) selected @endif>{{ $author->getPreferredName() }}</option>
+                                <option value="{{ $author->id }}" @if($poem->authors()->find($author->id)) selected @endif>{{ $author->preferredName }}</option>
                             @endforeach
                         </select>
                         @if ($errors->has('author'))

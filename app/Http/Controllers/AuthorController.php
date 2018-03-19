@@ -20,7 +20,7 @@ class AuthorController extends Controller
   public function show($id)
   {
     $author = Author::findOrFail($id);
-    $pagetitle = 'Author ' . $author->getPreferredName();
+    $pagetitle = 'Author ' . $author->preferredName;
     return view('author.show', array('pagetitle' => $pagetitle, 'author' => $author ));
   }
 

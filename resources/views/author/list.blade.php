@@ -31,16 +31,39 @@
             <div class="row">
                 <div class="col">
                     <div class="authors">
-                        <ul class="authors__list">
-                            @foreach ($authors as $author)
-                                <a href="{{ route('author', ['id' => $author->id]) }}">
-                                    <li class="authors__list-item">
-                                        <span class="author__firstname">{{ $author->firstname }}</span> <span class="author__familyname">{{ $author->familyname }}</span>
-                                        @if( $author->getCombinedNames() != $author->getPreferredName() ) <span class="author__preferredname">({{ $author->getPreferredName() }})</span> @endif
-                                    </li>
-                                </a>
-                            @endforeach
-                        </ul>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Total poems</th>
+                                    <th>Average rating</th>
+                                    <th>Added</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($authors as $author)
+                                    <tr>
+                                        <td class="author__name">
+                                            <a href="{{ route('author', ['id' => $author->id]) }}">
+                                                {{ $author->firstname }} {{ $author->familyname }}
+                                                @if( $author->getCombinedNames() != $author->preferredName )
+                                                    ({{ $author->preferredName }})
+                                                @endif
+                                            </a>
+                                        </td>
+                                        <td class="author__poems-count">
+                                            {{ $author->poems()->count() }}
+                                        </td>
+                                        <td class="author__average-rating">
+                                            {{ $author->getAveragePoemRating() }}
+                                        </td>
+                                        <td class="author__created-on">
+                                            {{ $author->created_at->format('j M Y, H:i') }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
