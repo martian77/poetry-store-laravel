@@ -13,31 +13,35 @@
     @unless(Auth::check())
         Please login to see a list of your authors.
     @else
+        <div class="row">
+            <div class="col">
+                <ul class="list-inline">
+                    <li @if(!isset($params['index'])) class="active" @endif><a href="{{ route('author.list') }}">All</a></li>
+                    @foreach(range('A', 'Z') as $char)
+                        <li @if(isset($params['index']) && $params['index'] == $char) class="active" @endif><a href="{{ route('author.list', array_merge($params, ['index' => $char])) }}">{{ $char }}</a></li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
         @empty( $authors->count() )
-          <div class="no-authors information">
-            <p>You do not currently have any authors listed. Please add some!</p>
-          </div>
-        @else
             <div class="row">
                 <div class="col">
-                    <ul class="list-inline">
-                        <li><a href="{{ route('author.list') }}">All</a></li>
-                        @foreach(range('A', 'Z') as $char)
-                            <li><a href="{{ route('author.list', ['familyname' => $char])}}">{{ $char }}</a></li>
-                        @endforeach
-                    </ul>
+                    <div class="no-authors information">
+                        <p>You do not currently have any authors listed. Please add some!</p>
+                    </div>
                 </div>
             </div>
+        @else
             <div class="row">
                 <div class="col">
                     <div class="authors">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Total poems</th>
+                                    <th><a href="{{ route('author.list', array_merge($params, ['sortby' => 'name'])) }}" >Name</a></th>
+                                    <th><a href="{{ route('author.list', array_merge($params, ['sortby' => 'poems'])) }}" >Total poems</a></th>
                                     <th>Average rating</th>
-                                    <th>Added</th>
+                                    <th><a href="{{ route('author.list', array_merge($params, ['sortby' => 'created_at'])) }}" >Added</a></th>
                                 </tr>
                             </thead>
                             <tbody>

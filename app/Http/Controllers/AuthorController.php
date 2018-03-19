@@ -33,16 +33,40 @@ class AuthorController extends Controller
   {
     $user = Auth::user();
     $authors = array();
+    $pagetitle = 'Authors listing';
+    $params = array();
     if (! empty($user)) {
-      if ( isset($_GET['familyname'])) {
-        $authors = $user->authors()->where('familyname', 'like', $_GET['familyname'] . '%');
+      $authors = Author::withCount('poems')->where('user_id', '=', $user->id);
+      if ( isset($_GET['index'])) {
+        $params['index'] = $_GET['index'];
+        $authors = $authors->where('familyname', 'like', $params['index'] . '%');
+        $pagetitle .= ': ' . $params['index'];
       }
-      else {
-        $authors = $user->authors();
+      $sortby = '';
+      if(isset($_GET['sortby'])) {
+        $params['sortby'] = $_GET['sortby'];
+        $sortby = $_GET['sortby'];
       }
-      $authors = $authors->orderBy('familyname', 'asc')->paginate(20);
+      switch($sortby) {
+        case 'created_at':
+          $authors = $authors->orderBy('created_at', 'asc');
+          break;
+        case 'poems':
+          // $authors = Author::withCount('poems')->where('user_id', '=', $user->id)->orderBy('poems_count', 'desc');
+          $authors = $authors->orderBy('poems_count', 'desc');
+          break;
+        default:
+          $authors = $authors->orderBy('familyname', 'asc');
+      }
+      $authors = $authors->paginate(20);
     }
-    return view('author.list', array('pagetitle' => 'Authors listing', 'authors' => $authors));
+
+    $view_data = array(
+      'pagetitle' => $pagetitle,
+      'authors' => $authors,
+      'params' => $params,
+    );
+    return view('author.list', $view_data);
   }
 
   public function add()
