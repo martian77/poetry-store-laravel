@@ -28,6 +28,7 @@
                 </a>
             @endforeach
           </div>
+          {{ $authors->links() }}
         @endempty
     @endunless
 @endsection
