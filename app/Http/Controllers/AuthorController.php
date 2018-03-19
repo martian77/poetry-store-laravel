@@ -34,7 +34,13 @@ class AuthorController extends Controller
     $user = Auth::user();
     $authors = array();
     if (! empty($user)) {
-      $authors = $user->authors()->orderBy('familyname', 'asc')->paginate(20);
+      if ( isset($_GET['familyname'])) {
+        $authors = $user->authors()->where('familyname', 'like', $_GET['familyname'] . '%');
+      }
+      else {
+        $authors = $user->authors();
+      }
+      $authors = $authors->orderBy('familyname', 'asc')->paginate(20);
     }
     return view('author.list', array('pagetitle' => 'Authors listing', 'authors' => $authors));
   }
