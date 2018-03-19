@@ -21,6 +21,7 @@ class CreateAuthorsTable extends Migration
             $table->longText('notes')->nullable();
             $table->date('birthdate')->nullable();
             $table->date('deathdate')->nullable();
+            $table->float('average_rating')->nullable();
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')
               ->on('users')->onDelete('cascade');

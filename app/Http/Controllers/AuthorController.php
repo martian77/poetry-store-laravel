@@ -51,8 +51,10 @@ class AuthorController extends Controller
         case 'created_at':
           $authors = $authors->orderBy('created_at', 'asc');
           break;
+        case 'rating':
+          $authors = $authors->orderBy('average_rating', 'desc');
+          break;
         case 'poems':
-          // $authors = Author::withCount('poems')->where('user_id', '=', $user->id)->orderBy('poems_count', 'desc');
           $authors = $authors->orderBy('poems_count', 'desc');
           break;
         default:

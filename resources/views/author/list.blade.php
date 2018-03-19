@@ -40,7 +40,7 @@
                                 <tr>
                                     <th><a href="{{ route('author.list', array_merge($params, ['sortby' => 'name'])) }}" >Name</a></th>
                                     <th><a href="{{ route('author.list', array_merge($params, ['sortby' => 'poems'])) }}" >Total poems</a></th>
-                                    <th>Average rating</th>
+                                    <th><a href="{{ route('author.list', array_merge($params, ['sortby' => 'rating'])) }}" >Average rating</a></th>
                                     <th><a href="{{ route('author.list', array_merge($params, ['sortby' => 'created_at'])) }}" >Added</a></th>
                                 </tr>
                             </thead>
@@ -59,7 +59,7 @@
                                             {{ $author->poems()->count() }}
                                         </td>
                                         <td class="author__average-rating">
-                                            {{ $author->getAveragePoemRating() }}
+                                            {{ $author->average_rating }}
                                         </td>
                                         <td class="author__created-on">
                                             {{ $author->created_at->format('j M Y, H:i') }}

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\PoemSaved;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentTaggable\Taggable;
 
@@ -14,6 +15,10 @@ class Poem extends Model
    * @var array
    */
   protected $fillable = ['title', 'body', 'publishedDate', 'copyright', 'license', 'rating'];
+
+  protected $dispatchesEvents = [
+      'saved' => PoemSaved::class,
+  ];
 
   public function authors()
   {
