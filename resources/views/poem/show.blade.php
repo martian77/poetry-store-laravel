@@ -37,6 +37,9 @@
                     <div class="poem__license"><span class="detail__data">{{ $poem->license }}</span></div>
                 @endif
             </div>
+            <div class="rating">
+                Rating: @empty($poem->rating) Not rated @else {{ $poem->rating }} @endempty
+            </div>
             @if (!empty($poem->sources()->count()))
                 <div class="subsection poem__sources">
                     <h3 class="subsection__title">Sources</h3>

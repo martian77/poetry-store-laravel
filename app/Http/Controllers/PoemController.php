@@ -80,6 +80,7 @@ class PoemController extends Controller
       'publishedDate' => $request->publishedDate,
       'copyright' => $request->copyright,
       'license' => $request->license,
+      'rating' => $request->rating,
     ];
     if ( ! empty($request->poem_id)) {
       $poem = $user->poems()->updateOrCreate(['id' => $request->poem_id], $data);

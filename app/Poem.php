@@ -13,7 +13,7 @@ class Poem extends Model
    *
    * @var array
    */
-  protected $fillable = ['title', 'body', 'publishedDate', 'copyright', 'license'];
+  protected $fillable = ['title', 'body', 'publishedDate', 'copyright', 'license', 'rating'];
 
   public function authors()
   {

@@ -111,6 +111,23 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <fieldset id="rating">
+                        <div class="col-md-2">
+                            <legend>Rating</legend>
+                        </div>
+                        <div class="col-md-2">
+                            <input id="rating0" name="rating" type="radio" value="0" @if(0===old('rating') || (empty(old('rating')) && 0===$poem->rating)) checked @endif >
+                            <label for="rating0" class="control-label">Not rated</label>
+                        </div>
+                        @for ($i=1; $i<=5; $i++)
+                            <div class="col-md-1">
+                                <input id="rating{{ $i }}" name="rating" type="radio" value="{{$i}}" @if($i==old('rating') || (empty(old('rating')) && $i==$poem->rating )) checked @endif >
+                                <label for="rating{{ $i }}" class="control-label">{{ $i }}</label>
+                            </div>
+                        @endfor
+                    </fieldset>
+                </div>
                 <div id="sources">
                     <fieldset>
                         <legend>Poem Sources</legend>
