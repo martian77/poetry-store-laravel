@@ -18,22 +18,47 @@
                 <p>You have no poems added. Go for it!</p>
             </div>
         @else
-            <ul class="poems">
-                @foreach ( $poems as $poem )
-                    <a href="{{ route('poem', ['id' => $poem->id]) }}">
-                        <li class="poem">
-                            <span class="poem__title">{{ $poem->title }}</span> -
-                            @if (! empty($poem->authors()->get()))
-                                @foreach ($poem->authors()->get() as $author)
-                                    {{ $author->preferredName }}@if (!$loop->last), @endif
+            <div class="row">
+                <div class="col">
+                    <div class="poems">
+                        <table class="table table-striped">
+                            <tbody>
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Authors</th>
+                                        <th>Rating</th>
+                                        <th>Date added</th>
+                                    </tr>
+                                </thead>
+                                @foreach ( $poems as $poem )
+                                    <tr>
+                                        <td>
+                                            <a href="{{ route('poem', ['id' => $poem->id]) }}">
+                                                {{ $poem->title }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            @if (! empty($poem->authors()->get()))
+                                                @foreach ($poem->authors()->get() as $author)
+                                                    <a href="{{ route('author', ['id' => $author->id])}}" >{{ $author->preferredName }}@if (!$loop->last), @endif</a>
+                                                @endforeach
+                                            @else
+                                                Anon
+                                            @endif
+                                        </td>
+                                        <td>
+                                            {{ $poem->rating }}
+                                        </td>
+                                        <td>
+                                            {{ $poem->created_at->format('j M Y, H:i') }}
+                                    </tr>
                                 @endforeach
-                            @else
-                                Anon
-                            @endif
-                        </li>
-                    </a>
-                @endforeach
-            </ul>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         @endempty
     @endunless
 @endsection

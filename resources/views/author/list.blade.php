@@ -41,7 +41,7 @@
                                     <th><a href="{{ route('author.list', array_merge($params, ['sortby' => 'name'])) }}" >Name</a></th>
                                     <th><a href="{{ route('author.list', array_merge($params, ['sortby' => 'poems'])) }}" >Total poems</a></th>
                                     <th><a href="{{ route('author.list', array_merge($params, ['sortby' => 'rating'])) }}" >Average rating</a></th>
-                                    <th><a href="{{ route('author.list', array_merge($params, ['sortby' => 'created_at'])) }}" >Added</a></th>
+                                    <th><a href="{{ route('author.list', array_merge($params, ['sortby' => 'created_at'])) }}" >Date added</a></th>
                                 </tr>
                             </thead>
                             <tbody>
