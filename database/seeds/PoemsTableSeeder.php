@@ -11,11 +11,14 @@ class PoemsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Poem::class, 6)->create()->each(function ($poem) {
-          $num_authors = rand(1, 3);
-          $authors = App\Author::all()->random($num_authors);
+        App\User::all()->each(function($user){
+          $user->poems()->saveMany(factory(App\Poem::class, rand(6, 20))->make());
+          foreach( $user->poems()->get() as $poem) {
+            $num_authors = rand(1, 3);
+            $authors = $poem->user->authors()->get()->random($num_authors);
+            $poem->authors()->saveMany($authors);
+          }
 
-          $poem->authors()->saveMany($authors);
-        });
+      });
     }
 }

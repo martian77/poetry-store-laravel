@@ -20,7 +20,7 @@ class CreatePoemsTable extends Migration
             $table->integer('publishedDate')->nullable()->unsigned();
             $table->string('copyright')->nullable();
             $table->string('license')->nullable();
-            $table->integer('rating')->unsigned();
+            $table->integer('rating')->unsigned()->default(0);
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')
               ->on('users')->onDelete('cascade');

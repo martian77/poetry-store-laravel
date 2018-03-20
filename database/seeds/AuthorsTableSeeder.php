@@ -11,7 +11,9 @@ class AuthorsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Author::class, 3)->states('preferredName')->create();
-        factory(App\Author::class, 3)->create();
+        App\User::all()->each(function($user){
+          $user->authors()->saveMany(factory(App\Author::class, rand(1, 10))->states('preferredName')->make());
+          $user->authors()->saveMany(factory(App\Author::class, rand(2, 10))->make());
+        });
     }
 }
