@@ -25,10 +25,10 @@
                             <tbody>
                                 <thead>
                                     <tr>
-                                        <th>Title</th>
+                                        <th><a href="{{ route('poem.list', array_merge($params, ['sortby' => 'title'])) }}">Title</a></th>
                                         <th>Authors</th>
-                                        <th>Rating</th>
-                                        <th>Date added</th>
+                                        <th><a href="{{ route('poem.list', array_merge($params, ['sortby' => 'rating'])) }}">Rating</a></th>
+                                        <th><a href="{{ route('poem.list', array_merge($params, ['sortby' => 'created_at'])) }}">Date added</a></th>
                                     </tr>
                                 </thead>
                                 @foreach ( $poems as $poem )
@@ -48,7 +48,11 @@
                                             @endif
                                         </td>
                                         <td>
-                                            {{ $poem->rating }}
+                                            @empty($poem->rating)
+                                                -
+                                            @else
+                                                {{ $poem->rating }}
+                                            @endempty
                                         </td>
                                         <td>
                                             {{ $poem->created_at->format('j M Y, H:i') }}
@@ -62,7 +66,7 @@
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <div class="text-center">
-                        {{ $poems->links() }}
+                        {{ $poems->appends($params)->links() }}
                     </div>
                 </div>
             </div>

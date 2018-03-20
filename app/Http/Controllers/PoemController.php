@@ -25,11 +25,34 @@ class PoemController extends Controller
   {
     $user = Auth::user();
     $poems = array();
+    $params = array();
     if (! empty($user)) {
       $poems = $user->poems();
+
+      $sortby = '';
+      if(isset($_GET['sortby'])) {
+        $params['sortby'] = $_GET['sortby'];
+        $sortby = $_GET['sortby'];
+      }
+      switch($sortby) {
+        case 'created_at':
+          $poems = $poems->orderBy('created_at', 'asc');
+          break;
+        case 'rating':
+          $poems = $poems->orderBy('rating', 'desc');
+          break;
+        default:
+          $poems = $poems->orderBy('title', 'asc');
+      }
       $poems = $poems->paginate(15);
     }
-    return view('poem.list', array('pagetitle' => 'Poems Listing', 'poems' => $poems));
+
+    $view_data = array(
+      'pagetitle' => 'Poems Listing',
+      'poems' => $poems,
+      'params' => $params,
+    );
+    return view('poem.list', $view_data);
   }
 
   public function add()
