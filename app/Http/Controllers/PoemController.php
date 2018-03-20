@@ -24,10 +24,18 @@ class PoemController extends Controller
   public function list()
   {
     $user = Auth::user();
+    $pagetitle = 'Poems Listing';
     $poems = array();
     $params = array();
+
     if (! empty($user)) {
       $poems = $user->poems();
+
+      if ( isset($_GET['index'])) {
+        $params['index'] = $_GET['index'];
+        $poems = $poems->where('title', 'like', $params['index'] . '%');
+        $pagetitle .= ': ' . $params['index'];
+      }
 
       $sortby = '';
       if(isset($_GET['sortby'])) {
@@ -48,7 +56,7 @@ class PoemController extends Controller
     }
 
     $view_data = array(
-      'pagetitle' => 'Poems Listing',
+      'pagetitle' => $pagetitle,
       'poems' => $poems,
       'params' => $params,
     );

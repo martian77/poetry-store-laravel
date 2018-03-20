@@ -13,6 +13,16 @@
     @unless(Auth::check())
         Please login to see a list of your poems.
     @else
+        <div class="row">
+            <div class="col">
+                <ul class="list-inline">
+                    <li @if(!isset($params['index'])) class="active" @endif><a href="{{ route('poem.list', array_diff_key($params, ['index'=>'All'])) }}">All</a></li>
+                    @foreach(range('A', 'Z') as $char)
+                        <li @if(isset($params['index']) && $params['index'] == $char) class="active" @endif><a href="{{ route('poem.list', array_merge($params, ['index' => $char])) }}">{{ $char }}</a></li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
         @empty($poems->count())
             <div class="no-poems information">
                 <p>You have no poems added. Go for it!</p>

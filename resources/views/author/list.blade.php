@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col">
                 <ul class="list-inline">
-                    <li @if(!isset($params['index'])) class="active" @endif><a href="{{ route('author.list') }}">All</a></li>
+                    <li @if(!isset($params['index'])) class="active" @endif><a href="{{ route('author.list', array_diff_key($params, ['index'=>'All'])) }}">All</a></li>
                     @foreach(range('A', 'Z') as $char)
                         <li @if(isset($params['index']) && $params['index'] == $char) class="active" @endif><a href="{{ route('author.list', array_merge($params, ['index' => $char])) }}">{{ $char }}</a></li>
                     @endforeach
