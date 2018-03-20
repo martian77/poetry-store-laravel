@@ -74,7 +74,7 @@
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <div class="text-center">
-                        {{ $authors->links() }}
+                        {{ $authors->appends($params)->links() }}
                     </div>
                 </div>
             </div>

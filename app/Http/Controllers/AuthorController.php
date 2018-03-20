@@ -60,7 +60,7 @@ class AuthorController extends Controller
         default:
           $authors = $authors->orderBy('familyname', 'asc');
       }
-      $authors = $authors->paginate(20);
+      $authors = $authors->paginate(15);
     }
 
     $view_data = array(

@@ -59,6 +59,13 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="text-center">
+                        {{ $poems->links() }}
+                    </div>
+                </div>
+            </div>
         @endempty
     @endunless
 @endsection

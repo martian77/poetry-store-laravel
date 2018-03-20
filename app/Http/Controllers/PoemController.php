@@ -26,7 +26,8 @@ class PoemController extends Controller
     $user = Auth::user();
     $poems = array();
     if (! empty($user)) {
-      $poems = $user->poems()->get();
+      $poems = $user->poems();
+      $poems = $poems->paginate(15);
     }
     return view('poem.list', array('pagetitle' => 'Poems Listing', 'poems' => $poems));
   }
