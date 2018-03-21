@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\PoemSaved' => [
             'App\Listeners\UpdateAuthorAverageRating',
         ],
+        'App\Events\UserCreated' => [
+          'App\Listeners\AssignDefaultUserRole',
+        ],
     ];
 
     /**

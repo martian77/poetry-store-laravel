@@ -2,12 +2,15 @@
 
 namespace App;
 
+use App\Events\UserCreated;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Silber\Bouncer\Database\HasRolesAndAbilities;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use HasRolesAndAbilities;
 
     /**
      * The attributes that are mass assignable.
@@ -25,6 +28,15 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token',
+    ];
+
+    /**
+     * The events dispatched by this Model
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => UserCreated::class,
     ];
 
     public function poems()
