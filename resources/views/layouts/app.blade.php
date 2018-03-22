@@ -39,6 +39,9 @@
                     <ul class="nav navbar-nav">
                         <li><a href="/author">Authors</a></li>
                         <li><a href="/poem">Poems</a></li>
+                        @can('manage-app')
+                            <li><a href="/admin">Admin</a></li>
+                        @endcan
                     </ul>
 
                     <!-- Right Side Of Navbar -->

@@ -66,6 +66,7 @@
                                         </td>
                                         <td>
                                             {{ $poem->created_at->format('j M Y, H:i') }}
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
