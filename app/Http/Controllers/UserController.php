@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -78,9 +79,24 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id = 0)
     {
-        //
+      $current_user = Auth::user();
+      if (empty($id)) {
+        $id = $current_user->id;
+      }
+      $profile_user = User::find($id);
+      if (empty($profile_user)) {
+        abort(404);
+      }
+      elseif ( ! $current_user->can('view', $profile_user)) {
+        abort(403);
+      }
+      $view_data = array(
+        'pagetitle' => $profile_user->name,
+        'user' => $profile_user,
+      );
+      return view('user.show', $view_data);
     }
 
     /**

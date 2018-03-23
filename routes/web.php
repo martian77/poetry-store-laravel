@@ -31,11 +31,15 @@ Route::post('/author', 'AuthorController@store')->middleware('auth')->name('auth
 
 Route::get('/tag/{normalised}', 'TagController@show')->name('tag')->middleware('auth');
 
-// Admin functions
+// Admin routes
 Route::get('/admin', function() {
   return view('admin.dashboard', ['pagetitle' => 'Admin dashboard']);
 })->middleware('auth', 'checkability:manage-app')->name('admin.main');
 Route::get('/admin/users', 'UserController@index')->middleware('auth', 'checkability:admin-user-list')->name('admin.users');
+
+// User routes
+Route::get('/user/{id?}', 'UserController@show')->middleware('auth')->name('user');
+Route::get('/user/{id}/edit', 'UserController@edit')->middleware('auth')->name('user.edit');
 
 Auth::routes();
 

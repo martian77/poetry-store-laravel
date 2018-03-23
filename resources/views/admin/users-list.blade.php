@@ -32,7 +32,9 @@
                             @foreach ( $users as $user )
                                 <tr>
                                     <td>
-                                        {{ $user->name }}
+                                        <a href="{{ route('user', ['id' => $user->id])}}">
+                                            {{ $user->name }}
+                                        </a>
                                     </td>
                                     <td>
                                         {{ $user->authors->count() }}
