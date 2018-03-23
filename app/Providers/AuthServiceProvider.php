@@ -23,6 +23,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        \Bouncer::ownedVia(\App\User::class, 'id');
         $this->registerPolicies();
 
         //

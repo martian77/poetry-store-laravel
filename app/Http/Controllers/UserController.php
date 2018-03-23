@@ -89,7 +89,7 @@ class UserController extends Controller
       if (empty($profile_user)) {
         abort(404);
       }
-      elseif ( ! $current_user->can('view', $profile_user)) {
+      if ( $current_user->cannot('view', $profile_user)) {
         abort(403);
       }
       $view_data = array(
