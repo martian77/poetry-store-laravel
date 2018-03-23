@@ -16,7 +16,7 @@ class CheckAbility
     public function handle($request, Closure $next, $ability)
     {
         if (! $request->user()->can($ability)) {
-          return response('Yeah no', 401);
+          abort(403, 'Yeah no');
         }
         return $next($request);
     }
