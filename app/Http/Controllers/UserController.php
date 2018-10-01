@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreUserUpdateRequest;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -107,7 +108,19 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $current_user = Auth::user();
+        $profile_user = User::find($id);
+        if (empty($profile_user) ) {
+          abort(404);
+        }
+        if ($current_user->cannot('edit', $profile_user)) {
+          abort(403);
+        }
+        $view_data = array(
+          'pagetitle' => 'Edit ' . $profile_user->name,
+          'user' => $profile_user,
+        );
+        return view('user.edit', $view_data);
     }
 
     /**
@@ -117,9 +130,20 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUserUpdateRequest $request, $id)
     {
-        //
+        $current_user = Auth::user();
+        $profile_user = User::find($id);
+        if (empty($profile_user) ) {
+          abort(404);
+        }
+        if ($current_user->cannot('edit', $profile_user)) {
+          abort(403);
+        }
+        $profile_user->name = $request->name;
+        $profile_user->email = $request->email;
+        $profile_user->save();
+        return redirect(route('user', ['id' => $id]));
     }
 
     /**

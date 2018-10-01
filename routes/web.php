@@ -40,6 +40,7 @@ Route::get('/admin/users', 'UserController@index')->middleware('auth', 'checkabi
 // User routes
 Route::get('/user/{id?}', 'UserController@show')->middleware('auth')->name('user');
 Route::get('/user/{id}/edit', 'UserController@edit')->middleware('auth')->name('user.edit');
+Route::post('/user/{id}/edit', 'UserController@update')->middleware('auth')->name('user.update');
 
 Auth::routes();
 
