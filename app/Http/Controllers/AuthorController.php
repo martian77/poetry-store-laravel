@@ -16,7 +16,7 @@ class AuthorController extends Controller
    * Shows a single author.
    *
    * @param  int $id The id of the author to display.
-   * @return
+   * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
    */
   public function show($id)
   {
@@ -28,7 +28,7 @@ class AuthorController extends Controller
   /**
    * Lists all authors.
    *
-   * @return [type] [description]
+   * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
    */
   public function list()
   {
@@ -126,58 +126,11 @@ class AuthorController extends Controller
     $tags = is_null($request->tags)?'':$request->tags;
     $author->retag($tags);
 
-    if (isset( $request->source ) )
-    {
-        $author = $this->storeSources($request->source, $author);
-    }
+    $author = Source::storeSources($request->source, $author);
+
     if(!empty($author->id)) {
       return redirect( route('author', ['id' => $author->id] ) );
     }
     return redirect(route('author.list'));
-  }
-
-  /**
-   * @param $sources
-   * @param Author $author
-   * @return Author
-   */
-  protected function storeSources( $sources, Author $author )
-  {
-      $existingSources = $author->sources;
-      if ( count($existingSources) > 0 )
-      {
-          foreach( $existingSources as $existing )
-          {
-              $id = $existing->id;
-              $updated = false;
-              foreach($sources as $key => $source)
-              {
-                  if ($id == $source['id']) {
-                      if ( ! (empty($source['description']) && empty($source['link']))) {
-                          $updated = true;
-                          $existing->sourceType = $source['sourceType'];
-                          $existing->description = $source['description'];
-                          $existing->link = $source['link'];
-                          $existing->save();
-                      }
-                      unset($sources[$key]);
-                      break;
-                  }
-              }
-              if ( ! $updated )
-              {
-                  $existing->delete();
-              }
-          }
-      }
-      // Now add anything that's left.
-      if (count($sources) > 0 ) {
-          foreach($sources as $source) {
-              if ( ! (empty($source['description']) && empty($source['link']))) {
-                  $author->sources()->create($source);
-              }
-          }
-      }
-      return $author;
   }
 }

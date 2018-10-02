@@ -18,7 +18,7 @@ class PoemController extends Controller
 
     /**
      * Lists all of a user's poems.
-     * @return [type] [description]
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function list()
     {
@@ -129,72 +129,7 @@ class PoemController extends Controller
         $tags = is_null($request->tags) ? '' : $request->tags;
         $poem->retag($tags);
 
-//        $counter = 0;
-//        while (!empty($request->input('sourceType' . $counter))) {
-//            $source_id = $request->input('sourceId' . $counter);
-//            if (!empty($source_id)) {
-//                $source = Source::find($source_id);
-//            } else {
-//                $source = new Source;
-//            }
-//            $source->sourceType = $request->input('sourceType' . $counter);
-//            $source->description = $request->input('sourceDescription' . $counter);
-//            $source->link = $request->input('sourceLink' . $counter);
-//            if (!empty($source->description) || !empty($source->description)) {
-//                $poem->sources()->save($source);
-//            } elseif (!empty($source_id)) {
-//                $poem->sources()->where('id', '=', $source_id)->delete();
-//            }
-//          $counter++;
-//        }
-        $this->storeSources( $request->source, $poem);
+        Source::storeSources( $request->source, $poem);
         return redirect(route('poem', ['id' => $poem->id]));
-    }
-
-    /**
-     * Updates the sources on the poem with the form values.
-     *
-     * @param $sources      Sources submitted in the form.
-     * @param Poem $poem    The poem to add the sources to.
-     * @return Poem         The updated poem.
-     */
-    protected function storeSources( $sources, Poem $poem )
-    {
-        $existingSources = $poem->sources;
-        if ( count($existingSources) > 0 )
-        {
-            foreach( $existingSources as $existing )
-            {
-                $id = $existing->id;
-                $updated = false;
-                foreach($sources as $key => $source)
-                {
-                    if ($id == $source['id']) {
-                        if ( ! (empty($source['description']) && empty($source['link']))) {
-                            $updated = true;
-                            $existing->sourceType = $source['sourceType'];
-                            $existing->description = $source['description'];
-                            $existing->link = $source['link'];
-                            $existing->save();
-                        }
-                        unset($sources[$key]);
-                        break;
-                    }
-                }
-                if ( ! $updated )
-                {
-                    $existing->delete();
-                }
-            }
-        }
-        // Now add anything that's left.
-        if (count($sources) > 0 ) {
-            foreach($sources as $source) {
-                if ( ! (empty($source['description']) && empty($source['link']))) {
-                    $poem->sources()->create($source);
-                }
-            }
-        }
-        return $poem;
     }
 }
