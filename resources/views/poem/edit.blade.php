@@ -128,14 +128,7 @@
                         @endfor
                     </fieldset>
                 </div>
-                <div id="sources">
-                    <fieldset>
-                        <legend>Poem Sources</legend>
-                        @foreach($sources as $source)
-                            @include('source.edit', ['source' => $source, 'counter' => $loop->index])
-                        @endforeach
-                    </fieldset>
-                </div>
+                <item-sources v-bind:item-sources='@json($poem->sources)'></item-sources>
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-5">
                         <button type="submit" class="btn btn-primary">

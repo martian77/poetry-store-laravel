@@ -11,8 +11,6 @@ window.Vue = require('vue');
 
 Vue.component('item-sources', require('./components/ItemSources.vue'));
 
-console.log( 'hello world');
-
 const app = new Vue({
     el: '#app'
 });

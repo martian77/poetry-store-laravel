@@ -16,6 +16,7 @@ class AuthorController extends Controller
    * Shows a single author.
    *
    * @param  int $id The id of the author to display.
+   * @return
    */
   public function show($id)
   {
@@ -135,6 +136,11 @@ class AuthorController extends Controller
     return redirect(route('author.list'));
   }
 
+  /**
+   * @param $sources
+   * @param Author $author
+   * @return Author
+   */
   protected function storeSources( $sources, Author $author )
   {
       $existingSources = $author->sources;
