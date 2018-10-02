@@ -96,6 +96,12 @@ class AuthorController extends Controller
     return view('author.edit', $view_data);
   }
 
+    /**
+     * Store the completed author form.
+     *
+     * @param StoreAuthorRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
   public function store(StoreAuthorRequest $request)
   {
     $user = Auth::user();
@@ -118,29 +124,54 @@ class AuthorController extends Controller
     }
     $tags = is_null($request->tags)?'':$request->tags;
     $author->retag($tags);
-    $counter = 0;
-    while (!empty($request->input('sourceType' . $counter))) {
-      $source_id = $request->input('sourceId' . $counter);
-      if ( !empty($source_id)) {
-        $source = Source::find($source_id);
-      }
-      else {
-        $source = new Source;
-      }
-      $source->sourceType = $request->input('sourceType' . $counter);
-      $source->description = $request->input('sourceDescription' . $counter);
-      $source->link = $request->input('sourceLink' . $counter);
-      if(!empty($source->description) || !empty($source->description)) {
-        $author->sources()->save($source);
-      }
-      elseif(!empty($source_id)) {
-        $author->sources()->where('id', '=', $source_id)->delete();;
-      }
-      $counter++;
+
+    if (isset( $request->source ) )
+    {
+        $author = $this->storeSources($request->source, $author);
     }
     if(!empty($author->id)) {
       return redirect( route('author', ['id' => $author->id] ) );
     }
     return redirect(route('author.list'));
+  }
+
+  protected function storeSources( $sources, Author $author )
+  {
+      $existingSources = $author->sources;
+      if ( count($existingSources) > 0 )
+      {
+          foreach( $existingSources as $existing )
+          {
+              $id = $existing->id;
+              $updated = false;
+              foreach($sources as $key => $source)
+              {
+                  if ($id == $source['id']) {
+                      if ( ! (empty($source['description']) && empty($source['link']))) {
+                          $updated = true;
+                          $existing->sourceType = $source['sourceType'];
+                          $existing->description = $source['description'];
+                          $existing->link = $source['link'];
+                          $existing->save();
+                      }
+                      unset($sources[$key]);
+                      break;
+                  }
+              }
+              if ( ! $updated )
+              {
+                  $existing->delete();
+              }
+          }
+      }
+      // Now add anything that's left.
+      if (count($sources) > 0 ) {
+          foreach($sources as $source) {
+              if ( ! (empty($source['description']) && empty($source['link']))) {
+                  $author->sources()->create($source);
+              }
+          }
+      }
+      return $author;
   }
 }

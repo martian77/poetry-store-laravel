@@ -19,7 +19,7 @@
                     <label for="firstname" class="col-md-4 control-label">First Name</label>
 
                     <div class="col-md-6">
-                        <input id="firstname" type="text" class="form-control" name="firstname" value="{{ !empty(old('firstname'))?old('firstname'):$author->firstname }}" required autofocus>
+                        <input id="firstname" type="text" class="form-control" name="firstname" value="{{ old('firstname', $author->firstname) }}" required autofocus>
 
                         @if ($errors->has('firstname'))
                             <span class="help-block">
@@ -32,7 +32,7 @@
                     <label for="familyname" class="col-md-4 control-label">Family Name</label>
 
                     <div class="col-md-6">
-                        <input id="familyname" type="text" class="form-control" name="familyname" value="{{ !empty(old('familyname'))?old('familyname'):$author->familyname }}" required>
+                        <input id="familyname" type="text" class="form-control" name="familyname" value="{{ old('familyname', $author->familyname) }}" required>
 
                         @if ($errors->has('familyname'))
                             <span class="help-block">
@@ -45,7 +45,7 @@
                     <label for="preferredName" class="col-md-4 control-label">Preferred Name</label>
 
                     <div class="col-md-6">
-                        <input id="preferredName" type="text" class="form-control" name="preferredName" value="{{ !empty(old('preferredName'))?old('preferredName'):$author->preferredName }}">
+                        <input id="preferredName" type="text" class="form-control" name="preferredName" value="{{ old('preferredName', $author->preferredName) }}">
 
                         @if ($errors->has('preferredName'))
                             <span class="help-block">
@@ -58,7 +58,7 @@
                     <label for="birthdate" class="col-md-4 control-label">Date of Birth</label>
 
                     <div class="col-md-6">
-                        <input id="birthdate" type="date" class="form-control" name="birthdate" value="{{ !empty(old('birthdate'))?old('birthdate'):$author->birthdate }}">
+                        <input id="birthdate" type="date" class="form-control" name="birthdate" value="{{ old('birthdate', $author->birthdate) }}">
 
                         @if ($errors->has('birthdate'))
                             <span class="help-block">
@@ -71,7 +71,7 @@
                     <label for="deathdate" class="col-md-4 control-label">Date of Death</label>
 
                     <div class="col-md-6">
-                        <input id="deathdate" type="date" class="form-control" name="deathdate" value="{{ !empty(old('deathdate'))?old('deathdate'):$author->deathdate }}">
+                        <input id="deathdate" type="date" class="form-control" name="deathdate" value="{{ old('deathdate', $author->deathdate) }}">
 
                         @if ($errors->has('deathdate'))
                             <span class="help-block">
@@ -85,7 +85,7 @@
                         <label for="notes" class="col-md-2 control-label">Notes</label>
 
                         <div class="col-md-8">
-                            <textarea id="notes" class="form-control ckeditor" rows="20" name="notes">{{ !empty(old('notes'))?old('notes'):$author->notes }}</textarea>
+                            <textarea id="notes" class="form-control ckeditor" rows="20" name="notes">{{ old('notes', $author->notes) }}</textarea>
 
                             @if ($errors->has('notes'))
                                 <span class="help-block">
@@ -100,7 +100,7 @@
                         <label for="tags" class="col-md-2 control-label">Tags</label>
 
                         <div class="col-md-8">
-                            <input id="tags" type="text" class="form-control" name="tags" value="{{ !empty(old('tags'))?old('tags'):$author->tagList }}">
+                            <input id="tags" type="text" class="form-control" name="tags" value="{{ old('tags', $author->tagList) }}">
                             <small id="tags-help" class="form-text text-muted">Please separate your tags with a comma e.g. american, female.</small>
                             @if ($errors->has('tags'))
                                 <span class="help-block">
@@ -110,14 +110,8 @@
                         </div>
                     </div>
                 </div>
-                <div id="sources">
-                    <fieldset>
-                        <legend>Author Links</legend>
-                        @foreach($sources as $source)
-                            @include('source.edit', ['source' => $source, 'counter' => $loop->index])
-                        @endforeach
-                    </fieldset>
-                </div>
+
+                <item-sources v-bind:item-sources='@json($author->sources)'></item-sources>
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-4">
                         <button type="submit" class="btn btn-primary">
