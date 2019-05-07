@@ -146,5 +146,5 @@
 @endsection
 
 @section('footerScripts')
-    <script src="{{ mix('js/editor.js') }}"></script>
+    <script src="{{ url(mix('js/editor.js')) }}"></script>
 @endsection

@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="{{ url('favicon.ico') }}">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -36,13 +37,16 @@
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
+                    @auth
                     <ul class="nav navbar-nav">
-                        <li><a href="/author">Authors</a></li>
-                        <li><a href="/poem">Poems</a></li>
+
+                        <li><a href="{{ route('author.list') }}">Authors</a></li>
+                        <li><a href="{{ route('poem.list') }}">Poems</a></li>
                         @can('manage-app')
-                            <li><a href="/admin">Admin</a></li>
+                            <li><a href="{{ route('admin.main') }}">Admin</a></li>
                         @endcan
                     </ul>
+                    @endauth
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
@@ -52,7 +56,7 @@
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                <a href="#" class="btn dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
@@ -81,9 +85,9 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ mix('js/manifest.js') }}"></script>
-    <script src="{{ mix('js/vendor.js') }}"></script>
-    <script src="{{ mix('js/app.js') }}"></script>
+    <script src="{{ url(mix('js/manifest.js')) }}"></script>
+    <script src="{{ url(mix('js/vendor.js')) }}"></script>
+    <script src="{{ url(mix('js/app.js')) }}"></script>
     @yield('footerScripts')
 </body>
 </html>
