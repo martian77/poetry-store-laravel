@@ -7,4 +7,6 @@ It is supposed to act like a personal poetry store, and not as a way to share th
 It is also designed to explore [Laravel](/readme-laravel.md).
 
 ## Versions
-Please note this is currently running Laravel 5.5.
+Please note this is currently running Laravel 5.8.
+
+## Local setup
