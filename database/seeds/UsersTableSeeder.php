@@ -13,6 +13,5 @@ class UsersTableSeeder extends Seeder
     {
         factory(App\User::class, 10)->create();
 
-        Bouncer::sync(App\User::find(1))->roles(['admin']);
     }
 }
