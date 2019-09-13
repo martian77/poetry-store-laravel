@@ -1,1 +1,1 @@
-webpackJsonp([1],{49:function(o,c,e){o.exports=e(50)},50:function(o,c,e){var t=e(9),r=document.querySelector(".ckeditor");r&&t.create(r,{toolbar:["bold","italic"]}).catch(function(o){console.error(o)})}},[49]);
+webpackJsonp([1],{50:function(o,c,e){o.exports=e(51)},51:function(o,c,e){var t=e(11),r=document.querySelector(".ckeditor");r&&t.create(r,{toolbar:["bold","italic"]}).catch(function(o){console.error(o)})}},[50]);
