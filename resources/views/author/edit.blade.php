@@ -16,9 +16,9 @@
                 <input name="author_id" type="hidden" value="{{ empty($author->id) ? 0 : $author->id }}" >
 
                 <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
-                    <label for="firstname" class="col-md-4 control-label">First Name</label>
+                    <label for="firstname" class="col-md-2 control-label">First Name</label>
 
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <input id="firstname" type="text" class="form-control" name="firstname" value="{{ old('firstname', $author->firstname) }}" required autofocus>
 
                         @if ($errors->has('firstname'))
@@ -29,9 +29,9 @@
                     </div>
                 </div>
                 <div class="form-group{{ $errors->has('familyname') ? ' has-error' : '' }}">
-                    <label for="familyname" class="col-md-4 control-label">Family Name</label>
+                    <label for="familyname" class="col-md-2 control-label">Family Name</label>
 
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <input id="familyname" type="text" class="form-control" name="familyname" value="{{ old('familyname', $author->familyname) }}" required>
 
                         @if ($errors->has('familyname'))
@@ -42,9 +42,9 @@
                     </div>
                 </div>
                 <div class="form-group{{ $errors->has('preferredName') ? ' has-error' : '' }}">
-                    <label for="preferredName" class="col-md-4 control-label">Preferred Name</label>
+                    <label for="preferredName" class="col-md-2 control-label">Preferred Name</label>
 
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <input id="preferredName" type="text" class="form-control" name="preferredName" value="{{ old('preferredName', $author->preferredName) }}">
 
                         @if ($errors->has('preferredName'))
@@ -55,9 +55,9 @@
                     </div>
                 </div>
                 <div class="form-group{{ $errors->has('birthdate') ? ' has-error' : '' }}">
-                    <label for="birthdate" class="col-md-4 control-label">Date of Birth</label>
+                    <label for="birthdate" class="col-md-2 control-label">Date of Birth</label>
 
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <input id="birthdate" type="date" class="form-control" name="birthdate" value="{{ old('birthdate', $author->birthdate) }}">
 
                         @if ($errors->has('birthdate'))
@@ -68,9 +68,9 @@
                     </div>
                 </div>
                 <div class="form-group{{ $errors->has('deathdate') ? ' has-error' : '' }}">
-                    <label for="deathdate" class="col-md-4 control-label">Date of Death</label>
+                    <label for="deathdate" class="col-md-2 control-label">Date of Death</label>
 
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <input id="deathdate" type="date" class="form-control" name="deathdate" value="{{ old('deathdate', $author->deathdate) }}">
 
                         @if ($errors->has('deathdate'))
@@ -80,34 +80,30 @@
                         @endif
                     </div>
                 </div>
-                <div class="row">
-                    <div class="form-group{{ $errors->has('notes') ? ' has-error' : '' }}">
-                        <label for="notes" class="col-md-2 control-label">Notes</label>
+                <div class="form-group{{ $errors->has('notes') ? ' has-error' : '' }}">
+                    <label for="notes" class="col-md-2 control-label">Notes</label>
 
-                        <div class="col-md-8">
-                            <textarea id="notes" class="form-control ckeditor" rows="20" name="notes">{{ old('notes', $author->notes) }}</textarea>
+                    <div class="col-md-8">
+                        <textarea id="notes" class="form-control ckeditor" rows="20" name="notes">{{ old('notes', $author->notes) }}</textarea>
 
-                            @if ($errors->has('notes'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('notes') }}</strong>
-                                </span>
-                            @endif
-                        </div>
+                        @if ($errors->has('notes'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('notes') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </div>
-                <div class="row">
-                    <div class="form-group{{ $errors->has('tags') ? ' has-error' : '' }}">
-                        <label for="tags" class="col-md-2 control-label">Tags</label>
+                <div class="form-group{{ $errors->has('tags') ? ' has-error' : '' }}">
+                    <label for="tags" class="col-md-2 control-label">Tags</label>
 
-                        <div class="col-md-8">
-                            <input id="tags" type="text" class="form-control" name="tags" value="{{ old('tags', $author->tagList) }}">
-                            <small id="tags-help" class="form-text text-muted">Please separate your tags with a comma e.g. american, female.</small>
-                            @if ($errors->has('tags'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('tags') }}</strong>
-                                </span>
-                            @endif
-                        </div>
+                    <div class="col-md-8">
+                        <input id="tags" type="text" class="form-control" name="tags" value="{{ old('tags', $author->tagList) }}">
+                        <small id="tags-help" class="form-text text-muted">Please separate your tags with a comma e.g. american, female.</small>
+                        @if ($errors->has('tags'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('tags') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </div>
 
