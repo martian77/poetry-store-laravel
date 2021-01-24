@@ -1,35 +1,46 @@
 <?php
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use App\Author;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| This directory should contain each of the model factory definitions for
-| your application. Factories provide a convenient way to generate new
-| model instances for testing / seeding your application's database.
-|
-*/
+class AuthorFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Author::class;
 
-$factory->define( App\Author::class, function($faker) {
-  $name = explode(' ', $faker->name);
-  return array(
-    'firstname' => $name[0],
-    'familyname' => $name[1],
-    'birthdate' => $faker->date,
-    'deathdate' => $faker->date,
-    'preferredName' => '',
-    // 'links' => array(
-    //   'https://en.wikipedia.org/wiki/Ogden_Nash',
-    //   'https://www.poets.org/poetsorg/poet/ogden-nash',
-    // ),
-  );
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $name = explode(' ', $this->faker->name);
+        return [
+            'firstname' => $name[0],
+            'familyname' => $name[1],
+            'birthdate' => $faker->date,
+            'deathdate' => $faker->date,
+            'preferredName' => '',
+            // 'links' => array(
+            //   'https://en.wikipedia.org/wiki/Ogden_Nash',
+            //   'https://www.poets.org/poetsorg/poet/ogden-nash',
+            // ),
+        ];
+    }
 
-$factory->state(App\Author::class, 'preferredName', function($faker) {
-  return [
-    'preferredName' => $faker->name,
-  ];
-});
+    public function preferredName()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'preferredName' => $this->faker->name,,
+            ];
+        });
+    }
+}

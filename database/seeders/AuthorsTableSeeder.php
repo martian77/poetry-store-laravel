@@ -1,6 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
+use App\Author;
 
 class AuthorsTableSeeder extends Seeder
 {
@@ -12,8 +15,8 @@ class AuthorsTableSeeder extends Seeder
     public function run()
     {
         App\User::all()->each(function($user){
-          $user->authors()->saveMany(factory(App\Author::class, rand(1, 10))->states('preferredName')->make());
-          $user->authors()->saveMany(factory(App\Author::class, rand(2, 10))->make());
+          $user->authors()->saveMany(Author::factory()->count(rand(1, 10))->preferredName()->make());
+          $user->authors()->saveMany(Author::factory()->count(rand(2, 10))->make());
         });
     }
 }
